@@ -54,4 +54,21 @@ export class ShoppingCartService {
         shoppingCart.products.push(product);
         return await this.cartRepo.save(shoppingCart);
     }
+
+    async removeProductFromShoppingCart(cartId: string, productId: number): Promise<ShoppingCart> {
+        const shoppingCart = await this.cartRepo.findOne({
+            where: {id: cartId},
+            relations: ['products']
+        });
+
+        if (!shoppingCart) {
+            throw new NotFoundException(`Carrito con ID ${cartId} no encontrado`);
+        }
+
+        shoppingCart.products = shoppingCart.products.filter(
+            product => product.id != productId
+        );
+
+        return await this.cartRepo.save(shoppingCart);
+    }
 }
