@@ -1,5 +1,5 @@
 import { Controller, Get, Param } from '@nestjs/common';
-import { ShoppingCartService } from './shopping-cart.service';
+import { ShoppingCartService } from './services/shopping-cart.service';
 import { ShoppingCart } from './entities/shopping-cart.entity';
 
 @Controller('shopping-cart')
