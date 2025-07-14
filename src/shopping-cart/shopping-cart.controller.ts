@@ -1,4 +1,4 @@
-import { Body, Controller, Get, Param, Post } from '@nestjs/common';
+import { Body, Controller, Get, Param, Post, Put } from '@nestjs/common';
 import { ShoppingCartService } from './services/shopping-cart.service';
 import { ShoppingCart } from './entities/shopping-cart.entity';
 
@@ -19,5 +19,10 @@ export class ShoppingCartController {
     @Post("")
     async createShoppingCart(@Body('userId') userId: string): Promise<ShoppingCart> {
         return await this.shoppingCartService.createShoppingCart(userId);
+    }
+
+    @Put("/:cartId/product/:productId")
+    async addProductToShoppingCart(@Param("cartId") cartId: string, @Param("productId") productId: number): Promise<ShoppingCart> {
+        return await this.shoppingCartService.addProductToShoppingCart(cartId, productId);
     }
 }
