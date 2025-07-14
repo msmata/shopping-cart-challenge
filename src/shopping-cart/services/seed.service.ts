@@ -3,6 +3,7 @@ import { InjectRepository } from '@nestjs/typeorm';
 import { Repository } from 'typeorm';
 import { Product } from '../entities/product.entity';
 import { ShoppingCart } from '../entities/shopping-cart.entity';
+import { Discount } from '../entities/discount.entity';
 
 @Injectable()
 export class SeedService implements OnApplicationBootstrap {
@@ -11,6 +12,8 @@ export class SeedService implements OnApplicationBootstrap {
     private readonly productRepo: Repository<Product>,
     @InjectRepository(ShoppingCart)
     private readonly cartRepo: Repository<ShoppingCart>,
+    @InjectRepository(Discount)
+    private readonly discountRepo: Repository<Discount>,
   ) {}
 
   async onApplicationBootstrap() {
@@ -26,6 +29,9 @@ export class SeedService implements OnApplicationBootstrap {
       });
 
       await this.cartRepo.save(cart);
+
+      const discount = this.discountRepo.create({category: 'electronica', percent: 0.1});
+      await this.discountRepo.save(discount);
 
       console.log('🌱 Datos de prueba insertados (productos y carrito)');
     }
