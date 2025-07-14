@@ -1,4 +1,5 @@
-import { Body, Controller, Delete, Get, Param, Post, Put } from '@nestjs/common';
+import { Body, Controller, Delete, Get, HttpStatus, Param, Post, Put, Res } from '@nestjs/common';
+import { Response } from 'express';
 import { ShoppingCartService } from './services/shopping-cart.service';
 import { ShoppingCart } from './entities/shopping-cart.entity';
 
@@ -34,5 +35,11 @@ export class ShoppingCartController {
     @Get("/user/:userId")
     async getUserShoppingCarts(@Param("userId") userId: string): Promise<ShoppingCart[]> {
         return await this.shoppingCartService.getUserShoppingCarts(userId);
+    }
+
+    @Post(':id/process')
+    async processCart(@Param('id') cartId: string, @Res() res: Response) {
+        this.shoppingCartService.processCartAsync(cartId); // sin await
+        return res.status(HttpStatus.ACCEPTED).json({ message: 'Estamos procesando su orden' });
     }
 }

@@ -6,6 +6,6 @@ export class Discount {
     id: string;
     @Column()
     category: string;
-    @Column()
+    @Column('float')
     percent: number;
 }
