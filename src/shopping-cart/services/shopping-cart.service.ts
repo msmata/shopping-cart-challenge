@@ -27,4 +27,8 @@ export class ShoppingCartService {
     getAllShoppingCarts(): ShoppingCart[] | PromiseLike<ShoppingCart[]> {
         return this.cartRepo.find({});
     }
+
+    createShoppingCart(userId: string): ShoppingCart | PromiseLike<ShoppingCart> {
+        return this.cartRepo.save({products: [], userId});
+    }
 }
