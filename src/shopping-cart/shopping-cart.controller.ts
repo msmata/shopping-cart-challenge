@@ -30,4 +30,9 @@ export class ShoppingCartController {
     async removeProductFromShoppingCart(@Param("cartId") cartId: string, @Param("productId") productId: number): Promise<ShoppingCart> {
         return await this.shoppingCartService.removeProductFromShoppingCart(cartId, productId);
     }
+
+    @Get("/user/:userId")
+    async getUserShoppingCarts(@Param("userId") userId: string): Promise<ShoppingCart[]> {
+        return await this.shoppingCartService.getUserShoppingCarts(userId);
+    }
 }

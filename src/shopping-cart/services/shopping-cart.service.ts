@@ -71,4 +71,13 @@ export class ShoppingCartService {
 
         return await this.cartRepo.save(shoppingCart);
     }
+
+    async getUserShoppingCarts(userId: string): Promise<ShoppingCart[]> {
+        const shoppingCarts = await this.cartRepo.find({
+            where: {userId},
+            relations: ['products']
+        });
+
+        return shoppingCarts;
+    }
 }
