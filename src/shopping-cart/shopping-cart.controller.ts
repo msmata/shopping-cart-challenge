@@ -40,8 +40,10 @@ export class ShoppingCartController {
         return await this.shoppingCartService.removeProductFromShoppingCart(cartId, productId, userId);
     }
 
-    @Get("/user/:userId")
-    async getUserShoppingCarts(@Param("userId") userId: string): Promise<ShoppingCart[]> {
+    @UseGuards(JwtAuthGuard)
+    @Get("/user/cart")
+    async getUserShoppingCarts(@Req() req): Promise<ShoppingCart[]> {
+        const userId = req.user.userId;
         return await this.shoppingCartService.getUserShoppingCarts(userId);
     }
 
