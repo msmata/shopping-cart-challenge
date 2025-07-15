@@ -2,6 +2,7 @@ import { Module } from '@nestjs/common';
 import { TypeOrmModule } from '@nestjs/typeorm';
 import { ShoppingCartModule } from './shopping-cart/shopping-cart.module';
 import { SeedModule } from './shopping-cart/seed.module';
+import { AuthModule } from './auth/auth.module';
 
 @Module({
   imports: [
@@ -12,7 +13,8 @@ import { SeedModule } from './shopping-cart/seed.module';
       synchronize: true,
     }),
     SeedModule,
-    ShoppingCartModule
+    ShoppingCartModule,
+    AuthModule
   ],
   controllers: [],
   providers: [],
