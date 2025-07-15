@@ -8,11 +8,6 @@ import { JwtAuthGuard } from 'src/auth/jwt-auth.guard';
 export class ShoppingCartController {
     constructor(private readonly shoppingCartService: ShoppingCartService) {}
 
-    @Get(":shoppingCartId")
-    async getShoppingCart(@Param("shoppingCartId") shoppingCartId: string): Promise<ShoppingCart> {
-        return await this.shoppingCartService.getShoppingCart(shoppingCartId);
-    }
-
     @UseGuards(JwtAuthGuard)
     @Get("")
     async getAllShoppingCarts(): Promise<ShoppingCart[]> {
@@ -41,7 +36,7 @@ export class ShoppingCartController {
     }
 
     @UseGuards(JwtAuthGuard)
-    @Get("/user/cart")
+    @Get("/user")
     async getUserShoppingCarts(@Req() req): Promise<ShoppingCart[]> {
         const userId = req.user.userId;
         return await this.shoppingCartService.getUserShoppingCarts(userId);
