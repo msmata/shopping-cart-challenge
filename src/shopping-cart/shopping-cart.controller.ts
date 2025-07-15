@@ -11,12 +11,6 @@ export class ShoppingCartController {
     constructor(private readonly shoppingCartService: ShoppingCartService) {}
 
     @UseGuards(JwtAuthGuard)
-    @Get("")
-    async getAllShoppingCarts(): Promise<ShoppingCart[]> {
-        return await this.shoppingCartService.getAllShoppingCarts();
-    }
-
-    @UseGuards(JwtAuthGuard)
     @ApiOperation({ summary: 'Crear nuevo carrito para el usuario autenticado' })
     @ApiResponse({ status: 201, description: 'Carrito creado' })
     @Post("")
