@@ -1,7 +1,8 @@
-import { Body, Controller, Delete, Get, HttpStatus, Param, Post, Put, Res } from '@nestjs/common';
+import { Body, Controller, Delete, Get, HttpStatus, Param, Post, Put, Res, UseGuards } from '@nestjs/common';
 import { Response } from 'express';
 import { ShoppingCartService } from './services/shopping-cart.service';
 import { ShoppingCart } from './entities/shopping-cart.entity';
+import { JwtAuthGuard } from 'src/auth/jwt-auth.guard';
 
 @Controller('shopping-cart')
 export class ShoppingCartController {
@@ -12,6 +13,7 @@ export class ShoppingCartController {
         return await this.shoppingCartService.getShoppingCart(shoppingCartId);
     }
 
+    @UseGuards(JwtAuthGuard)
     @Get("")
     async getAllShoppingCarts(): Promise<ShoppingCart[]> {
         return await this.shoppingCartService.getAllShoppingCarts();
