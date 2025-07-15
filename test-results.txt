@@ -1,0 +1,55 @@
+
+         /\      Grafana   /‾‾/  
+    /\  /  \     |\  __   /  /   
+   /  \/    \    | |/ /  /   ‾‾\ 
+  /          \   |   (  |  (‾)  |
+ / __________ \  |_|\_\  \_____/ 
+
+     execution: local
+        script: stress-test.js
+        output: -
+
+     scenarios: (100.00%) 1 scenario, 10 max VUs, 1m20s max duration (incl. graceful stop):
+              * default: Up to 10 looping VUs for 50s over 3 stages (gracefulRampDown: 30s, gracefulStop: 30s)
+
+
+
+  █ THRESHOLDS 
+
+    http_req_duration
+    ✓ 'p(95)<500' p(95)=7.93ms
+
+
+  █ TOTAL RESULTS 
+
+    checks_total.......................: 2000    39.797073/s
+    checks_succeeded...................: 100.00% 2000 out of 2000
+    checks_failed......................: 0.00%   0 out of 2000
+
+    ✓ login status 201
+    ✓ carrito creado
+    ✓ producto 1 agregado
+    ✓ producto 2 agregado
+    ✓ procesamiento iniciado
+
+    HTTP
+    http_req_duration.......................................................: avg=3.76ms min=578µs med=3.33ms max=15.98ms p(90)=6.75ms p(95)=7.93ms
+      { expected_response:true }............................................: avg=3.76ms min=578µs med=3.33ms max=15.98ms p(90)=6.75ms p(95)=7.93ms
+    http_req_failed.........................................................: 0.00%  0 out of 2000
+    http_reqs...............................................................: 2000   39.797073/s
+
+    EXECUTION
+    iteration_duration......................................................: avg=1.02s  min=1s    med=1.01s  max=1.04s   p(90)=1.03s  p(95)=1.03s 
+    iterations..............................................................: 400    7.959415/s
+    vus.....................................................................: 1      min=1         max=10
+    vus_max.................................................................: 10     min=10        max=10
+
+    NETWORK
+    data_received...........................................................: 718 kB 14 kB/s
+    data_sent...............................................................: 558 kB 11 kB/s
+
+
+
+
+running (0m50.3s), 00/10 VUs, 400 complete and 0 interrupted iterations
+default ✓ [======================================] 00/10 VUs  50s

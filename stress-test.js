@@ -18,8 +18,8 @@ const BASE_URL = 'http://localhost:3000';
 export default function () {
   // LOGIN
   const loginRes = http.post(`${BASE_URL}/auth/login`, JSON.stringify({
-    username: 'user123',
-    password: 'pass123'
+    username: 'pepe',
+    password: 'admin'
   }), {
     headers: { 'Content-Type': 'application/json' }
   });
@@ -31,7 +31,7 @@ export default function () {
   const token = `Bearer ${loginRes.json('token')}`;
 
   // CREAR CARRITO
-  const cartRes = http.post(`${BASE_URL}/carts`, null, {
+  const cartRes = http.post(`${BASE_URL}/shopping-cart`, null, {
     headers: {
       Authorization: token,
     },
@@ -44,7 +44,7 @@ export default function () {
   const cartId = cartRes.json('id');
 
   // AGREGAR PRODUCTO 1
-  const add1 = http.put(`${BASE_URL}/carts/${cartId}/product/1`, null, {
+  const add1 = http.put(`${BASE_URL}/shopping-cart/${cartId}/product/1`, null, {
     headers: {
       Authorization: token,
     },
@@ -55,7 +55,7 @@ export default function () {
   });
 
   // AGREGAR PRODUCTO 2
-  const add2 = http.put(`${BASE_URL}/carts/${cartId}/product/2`, null, {
+  const add2 = http.put(`${BASE_URL}/shopping-cart/${cartId}/product/2`, null, {
     headers: {
       Authorization: token,
     },
@@ -66,7 +66,7 @@ export default function () {
   });
 
   // PROCESAR PEDIDO
-  const processRes = http.post(`${BASE_URL}/carts/${cartId}/process`, null, {
+  const processRes = http.post(`${BASE_URL}/shopping-cart/${cartId}/process`, null, {
     headers: {
       Authorization: token,
     },
