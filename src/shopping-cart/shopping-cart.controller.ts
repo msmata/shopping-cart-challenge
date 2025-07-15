@@ -26,9 +26,11 @@ export class ShoppingCartController {
         return await this.shoppingCartService.createShoppingCart(userId);
     }
 
+    @UseGuards(JwtAuthGuard)
     @Put("/:cartId/product/:productId")
-    async addProductToShoppingCart(@Param("cartId") cartId: string, @Param("productId") productId: number): Promise<ShoppingCart> {
-        return await this.shoppingCartService.addProductToShoppingCart(cartId, productId);
+    async addProductToShoppingCart(@Req() req, @Param("cartId") cartId: string, @Param("productId") productId: number): Promise<ShoppingCart> {
+        const userId = req.user.userId;
+        return await this.shoppingCartService.addProductToShoppingCart(cartId, productId, userId);
     }
 
     @Delete("/:cartId/product/:productId")

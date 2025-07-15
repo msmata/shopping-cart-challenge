@@ -40,9 +40,12 @@ export class ShoppingCartService {
         return this.cartRepo.save({products: [], userId});
     }
 
-    async addProductToShoppingCart(cartId: string, productId: number): Promise<ShoppingCart> {
+    async addProductToShoppingCart(cartId: string, productId: number, userId: string): Promise<ShoppingCart> {
         const shoppingCart = await this.cartRepo.findOne({
-            where: {id: cartId},
+            where: {
+                id: cartId,
+                userId
+            },
             relations: ['products']
         });
 
