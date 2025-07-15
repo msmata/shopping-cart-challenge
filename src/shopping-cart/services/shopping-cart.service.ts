@@ -92,11 +92,14 @@ export class ShoppingCartService {
         return shoppingCarts;
     }
 
-    async processCartAsync(cartId: string): Promise<void> {
+    async processCartAsync(cartId: string, userId: string): Promise<void> {
         this.logger.log(`Procesando carrito ${cartId}...`);
 
         const cart = await this.cartRepo.findOne({
-            where: { id: cartId },
+            where: {
+                id: cartId,
+                userId
+            },
             relations: ['products'],
         });
 
@@ -106,9 +109,6 @@ export class ShoppingCartService {
         }
 
         let total = 0;
-
-        const discounts = await this.discountRepo.find({});
-        console.log("Discounts: ", discounts);
 
         for (const product of cart.products) {
             this.logger.log(`Looking for discounts por category ${product.category}`);

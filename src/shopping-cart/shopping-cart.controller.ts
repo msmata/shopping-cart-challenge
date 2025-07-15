@@ -42,9 +42,11 @@ export class ShoppingCartController {
         return await this.shoppingCartService.getUserShoppingCarts(userId);
     }
 
+    @UseGuards(JwtAuthGuard)
     @Post(':id/process')
-    async processCart(@Param('id') cartId: string, @Res() res: Response) {
-        this.shoppingCartService.processCartAsync(cartId); // sin await
+    async processCart(@Req() req, @Param('id') cartId: string, @Res() res: Response) {
+        const userId = req.user.userId;
+        this.shoppingCartService.processCartAsync(cartId, userId); // sin await
         return res.status(HttpStatus.ACCEPTED).json({ message: 'Estamos procesando su orden' });
     }
 }
