@@ -63,9 +63,12 @@ export class ShoppingCartService {
         return await this.cartRepo.save(shoppingCart);
     }
 
-    async removeProductFromShoppingCart(cartId: string, productId: number): Promise<ShoppingCart> {
+    async removeProductFromShoppingCart(cartId: string, productId: number, userId: string): Promise<ShoppingCart> {
         const shoppingCart = await this.cartRepo.findOne({
-            where: {id: cartId},
+            where: {
+                id: cartId,
+                userId
+            },
             relations: ['products']
         });
 
